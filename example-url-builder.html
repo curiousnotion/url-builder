@@ -1,0 +1,163 @@
+<html>
+<head>
+	<script src="jquery.min.js"></script>
+	<script defer="" src="script.js"></script>
+	<META NAME="ROBOTS" CONTENT="NOINDEX, NOFOLLOW">
+</head>
+
+<body>
+
+<h3>Education.com URL Builder</h3>
+	<strong>What does parameter tracking do?</strong>
+	<ul>
+		<li> Attributes lead generation and other user activities to campaigns within Google Analytics, Omniture & internal reporting systems.</li>
+		<li> Cues 3rd party ad network pixels to fire </li> 
+		<li> Applies coupons to purchases </li> 
+		<li> Allows marketing to create highly segmented re-marketing lists</li>	
+		</ul>	
+<!--URL Builder Form-->
+	<form action="">
+	<fieldset>
+		<p><strong>Step 1:</strong> Enter the URL of your landing page:</p>
+		<p><input type="text" name="domain" id="domain" class="big" style="height: 20px; width: 500px;" value="http://www.example.com"></p>
+		<hr>
+		<p><strong>Step 2:</strong> Fill in the fields below:</p>
+		<p><strong>NOTE:</strong> <em>Campaign Medium</em>, <em>Campaign Source</em> and <em>Campaign Name</em> should always be used.</p>
+				<hr>		
+		<p><label><strong><em>Campaign Medium:</em></strong></label> 
+				<select name="value" id="medium">
+				  <option value="other">--Not Set--</option>
+				  <option value="sem">SEM</option>
+				  <option value="display">Display</option>
+				  <option value="re-market">Re-Marketing</option>
+				  <option value="social">Social Media</option>
+				  <option value="email">Email</option>
+				  <option value="affiliates">Affiliates</option>
+				  <option value="video">Video</option>
+				<option value="onsite-ad">Onsite Ads</option>
+				  <option value="other">Other</option>
+				</select>		
+			</p>
+	<p>The name of the Medium. Think of "Medium" as <em>way</em> you're getting our message in front a customer.</p> 
+		<hr>
+		<p><label><strong><em>Campaign Source:</em></strong></label> 
+				<select name="value" id="source">
+				  <option value="other">--Not Set--</option>
+				  <option value="google">Google</option>
+				  <option value="facebook">Facebook</option>
+				  <option value="pinterest">Pintrest</option>
+				  <option value="yahoo">Yahoo</option>
+				  <option value="bing">Bing</option>
+				  <option value="youtube">YouTube</option>
+				  <option value="twitter">Twitter</option>
+				  <option value="internal">Internal Promotions</option>
+				  <option value="adroll">Adroll</option>
+				  <option value="other">Other</option>
+				</select>	
+	<p>The name of the Ad Network. Think of "Medium" as the network that you're using to get in front of a customer in a given medium.</p> 
+				<hr>
+
+		<p><label><strong><em>Campaign Name:</em></strong> </label> <input type="text" name="" id="campaign" value=""></p> 
+		<p>The audience that you're trying to reach. Also, shorthand for what you might search by in Google Analytics Report.</p> 
+		<p>Examples are:
+			<ul>
+				<li>Females, Age:25-44, who have children ages 3-5, live in the US or Canada <strong>--></strong> utm_campaingn=f-25-44-c-3-5-us-can</li>
+				<li>Males, Age:34-55, who are teachers, live in the US or Canada <strong>--></strong> utm_campaingn=m-34-55-teach-us-can</li>
+			</ul>
+		</p>
+				<hr>
+		<p><label><strong><em>Campaign Content:</em></strong> </label> <input type="text" name="" id="content" value=""></p> 
+		<p>Extra slot to input another dimension. Often used for the promotion being run, or the ad copy</p>
+		<p>Examples are:
+			<ul>
+				<li>Bainzy Orange Cat Ad for 15% Off <strong>--></strong> utm_content=brain-o-v-15</li>
+				<li>PLUS Blue Dog Ad for 15% Off <strong>--></strong> utm_content=plus-b-d-15</li>
+			</ul>
+		</p>
+				<hr>
+		<p><label><strong><em>CID Value:</em></strong> </label> <input type="text" name="" id="cid" value=""></p> 
+		<p>The value that you want set for your cid.</p>
+		<p>Examples are:
+			<ul>
+				<li>80.1234</li>
+				<li>72000.34534</strong></li>
+			</ul>
+		</p>
+		<hr>
+		<p><label><strong><em>Coupon Code:</em></strong> </label> <input type="text" name="" id="coupon" value=""></p> 
+		<p>The promotional code that you want to have applied the product when the customer clicks through.</p>
+			<p>Examples are:
+				<ul>
+					<li>BRAINZYRET10 <strong>--></strong> $10 Off For Re-Targeted Customers</li>
+					<li>PLW10 <strong>--></strong> $10 Off For Affiliate Customers</li>
+					<li> <a href="https://docs.google.com/spreadsheets/d/1nyMx2e1h01HwbPm54xBE8SEefhN9wQgJXAEca94t8Hc/edit#gid=549031857">Full List Here</a> 
+				</ul>
+			</p>
+				<hr>
+			<p><label><strong><em>Extra Slot:</em></strong> </label> <input type="text" name="" id="term" value=""></p> 
+			<p>An extra slot "utm_term" to input another dimension or trigger. (NOTE: This is not passed to Google Analytics.)</p>
+	</fieldset>
+	</form>
+	<div class="output" id="html">
+		<fieldset>
+		<strong>Tracking URL:</strong>
+		<textarea id="url" readonly="readonly" wrap="on" class="auto" style="height: 20px; width: 800px;"></textarea>
+		</fieldset>
+	</div>
+
+	<!--URL Builder Script-->
+			<script>
+				function updateOutput()
+				{
+					var domain = $('#domain').val();
+					var source = $('#source').val();
+					var medium = $('#medium').val();
+					var campaign = $('#campaign').val();
+					var content = $('#content').val();
+					var term = $('#term').val();
+					var cid = $('#cid').val();
+					var coupon = $('#coupon').val();
+
+					var html = domain+'?utm_source='+encodeURIComponent(source)+'&utm_medium='+encodeURIComponent(medium)+'&utm_campaign='+encodeURIComponent(campaign);
+					if (content) {
+						var html = html + '&utm_content='+encodeURIComponent(content);
+					}
+					if (cid) {
+						var html = html + '&cid='+encodeURIComponent(cid);
+					}
+					if (coupon) {
+						var html = html + '&coupon='+encodeURIComponent(coupon);
+					}
+					if (term) {
+						var html = html + '&utm_term='+encodeURIComponent(term);
+					}
+					if (domain && source && medium && campaign) {
+						$('#url').html(html.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"));
+						$('#url').change();
+					} else {
+						$('#url').html('');
+						$('#url').change();
+					}
+
+				}
+
+			   function initpage() {
+			     	$('.auto').autogrow();
+					$('.auto').click(function() {
+					  $(this).select();
+					});
+					$('input').keyup(window.updateOutput);
+					$('input').click(window.updateOutput);
+					$('select').change(window.updateOutput);
+
+			      	updateOutput();
+			    }
+
+				$(window.initpage);
+
+
+			</script>
+	
+</body>
+</html>
+
